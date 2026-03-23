@@ -2,7 +2,16 @@
   "name": "env-safe-guard",
   "version": "0.1.0",
   "description": "Type-safe environment validation with automatic secret redaction — built for the AI era.",
-  "keywords": ["env", "environment", "validation", "security", "dotenv", "typescript", "ai-safe", "secrets"],
+  "keywords": [
+    "env",
+    "environment",
+    "validation",
+    "security",
+    "dotenv",
+    "typescript",
+    "ai-safe",
+    "secrets"
+  ],
   "author": "",
   "license": "MIT",
   "type": "module",
@@ -22,9 +31,12 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "env-safe-guard": "./dist/cli/index.js"
+    "env-safe-guard": "dist/cli/index.js"
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -34,7 +46,9 @@
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build && npm test"
   },
-  "engines": { "node": ">=18" },
+  "engines": {
+    "node": ">=18"
+  },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "tsup": "^8.0.0",

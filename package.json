@@ -1,6 +1,6 @@
 {
   "name": "envfort",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Type-safe environment validation with automatic secret redaction — built for the AI era.",
   "keywords": [
     "env",

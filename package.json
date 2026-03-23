@@ -1,5 +1,5 @@
 {
-  "name": "env-safe-guard",
+  "name": "@akashjavali/env-safe-guard",
   "version": "0.1.0",
   "description": "Type-safe environment validation with automatic secret redaction — built for the AI era.",
   "keywords": [

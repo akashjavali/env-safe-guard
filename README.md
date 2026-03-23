@@ -2,11 +2,11 @@
 
 > Type-safe environment validation with automatic secret redaction — built for the AI era.
 
-[![npm version](https://img.shields.io/npm/v/env-safe-guard?style=flat-square)](https://www.npmjs.com/package/env-safe-guard)
-[![npm downloads](https://img.shields.io/npm/dm/env-safe-guard?style=flat-square)](https://www.npmjs.com/package/env-safe-guard)
-[![license](https://img.shields.io/npm/l/env-safe-guard?style=flat-square)](./LICENSE)
+[![npm version](https://img.shields.io/npm/v/@akashjavali/env-safe-guard?style=flat-square)](https://www.npmjs.com/package/@akashjavali/env-safe-guard)
+[![npm downloads](https://img.shields.io/npm/dm/@akashjavali/env-safe-guard?style=flat-square)](https://www.npmjs.com/package/@akashjavali/env-safe-guard)
+[![license](https://img.shields.io/npm/l/@akashjavali/env-safe-guard?style=flat-square)](./LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/akashjavali/env-safe-guard/ci.yml?style=flat-square&label=CI)](https://github.com/akashjavali/env-safe-guard/actions)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/env-safe-guard?style=flat-square)](https://bundlephobia.com/package/env-safe-guard)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@akashjavali/env-safe-guard?style=flat-square)](https://bundlephobia.com/package/@akashjavali/env-safe-guard)
 
 ---
 
@@ -36,16 +36,16 @@ AI coding assistants — Claude, Copilot, Cursor, ChatGPT — read your terminal
 
 ```bash
 # npm
-npm install env-safe-guard
+npm install @akashjavali/env-safe-guard
 
 # yarn
-yarn add env-safe-guard
+yarn add @akashjavali/env-safe-guard
 
 # pnpm
-pnpm add env-safe-guard
+pnpm add @akashjavali/env-safe-guard
 
 # bun
-bun add env-safe-guard
+bun add @akashjavali/env-safe-guard
 ```
 
 ---
@@ -53,7 +53,7 @@ bun add env-safe-guard
 ## Quick Start
 
 ```ts
-import { createEnv } from 'env-safe-guard'
+import { createEnv } from '@akashjavali/env-safe-guard'
 
 export const env = createEnv({
   DATABASE_URL: 'string',
@@ -97,7 +97,7 @@ That's it. Import `env` anywhere in your app and get fully typed, validated, red
 #### TypeScript inference example
 
 ```ts
-import { createEnv } from 'env-safe-guard'
+import { createEnv } from '@akashjavali/env-safe-guard'
 
 export const env = createEnv({
   DATABASE_URL: 'string',
@@ -144,8 +144,8 @@ All commands are available via `npx` with no installation required.
 Reads your schema and current `.env`, reports missing or invalid variables.
 
 ```bash
-npx env-safe-guard check
-npx env-safe-guard check --schema ./config/env.schema.ts
+npx @akashjavali/env-safe-guard check
+npx @akashjavali/env-safe-guard check --schema ./config/env.schema.ts
 ```
 
 ### `init` — Generate a schema file
@@ -153,8 +153,8 @@ npx env-safe-guard check --schema ./config/env.schema.ts
 Scaffolds a `env.ts` schema file from your existing `.env`.
 
 ```bash
-npx env-safe-guard init
-npx env-safe-guard init --output ./src/env.ts
+npx @akashjavali/env-safe-guard init
+npx @akashjavali/env-safe-guard init --output ./src/env.ts
 ```
 
 ### `gen-example` — Generate `.env.example`
@@ -162,8 +162,8 @@ npx env-safe-guard init --output ./src/env.ts
 Produces a `.env.example` with all keys present and secret values replaced by placeholders.
 
 ```bash
-npx env-safe-guard gen-example
-npx env-safe-guard gen-example --schema ./src/env.ts --output .env.example
+npx @akashjavali/env-safe-guard gen-example
+npx @akashjavali/env-safe-guard gen-example --schema ./src/env.ts --output .env.example
 ```
 
 ### `install-hook` — Install git pre-commit hook
@@ -171,8 +171,8 @@ npx env-safe-guard gen-example --schema ./src/env.ts --output .env.example
 Installs a pre-commit hook that runs `check` before every commit and ensures `.env` is in `.gitignore`.
 
 ```bash
-npx env-safe-guard install-hook
-npx env-safe-guard install-hook --root ./packages/api
+npx @akashjavali/env-safe-guard install-hook
+npx @akashjavali/env-safe-guard install-hook --root ./packages/api
 ```
 
 After installation, commits that would expose unprotected secrets are automatically blocked.
@@ -187,7 +187,7 @@ Create `src/env.ts` and import it in `next.config.ts` to validate at build time.
 
 ```ts
 // src/env.ts
-import { createEnv } from 'env-safe-guard'
+import { createEnv } from '@akashjavali/env-safe-guard'
 
 export const env = createEnv({
   DATABASE_URL: 'string',
@@ -222,7 +222,7 @@ export async function GET() {
 
 ```ts
 // src/env.ts
-import { createEnv } from 'env-safe-guard'
+import { createEnv } from '@akashjavali/env-safe-guard'
 
 export const env = createEnv({
   DATABASE_URL: 'string',
@@ -247,7 +247,7 @@ app.listen(env.PORT, () => {
 ### Plain Node.js with `loadDotEnv`
 
 ```ts
-import { createEnv } from 'env-safe-guard'
+import { createEnv } from '@akashjavali/env-safe-guard'
 
 const env = createEnv({
   STRIPE_SECRET_KEY: { type: 'string', secret: true },
@@ -273,7 +273,7 @@ console.log(env.STRIPE_SECRET_KEY) // ***REDACTED***
 
 ```ts
 // worker.ts
-import { createEnv } from 'env-safe-guard'
+import { createEnv } from '@akashjavali/env-safe-guard'
 
 export default {
   async fetch(request: Request, cfEnv: Env) {
@@ -293,7 +293,7 @@ export default {
 ### Deno
 
 ```ts
-import { createEnv } from 'npm:env-safe-guard'
+import { createEnv } from 'npm:@akashjavali/env-safe-guard'
 
 const env = createEnv({
   DATABASE_URL: 'string',
@@ -307,7 +307,7 @@ const env = createEnv({
 ### Bun
 
 ```ts
-import { createEnv } from 'env-safe-guard'
+import { createEnv } from '@akashjavali/env-safe-guard'
 
 const env = createEnv({
   DATABASE_URL: 'string',
@@ -323,7 +323,7 @@ const env = createEnv({
 Inject a fake environment in your test suite without touching `process.env`:
 
 ```ts
-import { createEnv } from 'env-safe-guard'
+import { createEnv } from '@akashjavali/env-safe-guard'
 
 const env = createEnv({
   DATABASE_URL: 'string',
@@ -343,7 +343,7 @@ const env = createEnv({
 Install the pre-commit hook once per repository:
 
 ```bash
-npx env-safe-guard install-hook
+npx @akashjavali/env-safe-guard install-hook
 ```
 
 This does two things:
@@ -354,7 +354,7 @@ This does two things:
 For monorepos, point it at the package root:
 
 ```bash
-npx env-safe-guard install-hook --root ./packages/api
+npx @akashjavali/env-safe-guard install-hook --root ./packages/api
 ```
 
 ---

@@ -49,13 +49,26 @@ describe('check command', () => {
 });
 
 describe('init command', () => {
-  it('creates a schema file', () => {
+  it('creates a schema file with sample when no .env.example', () => {
     const out = join(tmpdir(), `schema-${Date.now()}.json`);
     const { stdout, code } = runCli(['init', '--output', out]);
     expect(code).toBe(0);
     expect(existsSync(out)).toBe(true);
     expect(stdout).toContain('✅');
     unlinkSync(out);
+  });
+
+  it('generates schema from .env.example when present', () => {
+    const dir = join(tmpdir(), `init-example-${Date.now()}`);
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, '.env.example'), 'DATABASE_URL=\nAPI_KEY=\nPORT=\n');
+    const out = join(dir, 'env-schema.json');
+    const { stdout, code } = runCli(['init', '--output', out, '--example', join(dir, '.env.example')]);
+    expect(code).toBe(0);
+    const schema = JSON.parse(readFileSync(out, 'utf8'));
+    expect(Object.keys(schema)).toEqual(['DATABASE_URL', 'API_KEY', 'PORT']);
+    expect(stdout).toContain('.env.example');
+    rmSync(dir, { recursive: true });
   });
 
   it('exits 1 if file already exists', () => {

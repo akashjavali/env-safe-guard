@@ -8,7 +8,8 @@ function printUsage(): void {
 
 Commands:
   check        [--schema <path>]              Validate env against a schema file
-  init         [--output <path>]              Generate a sample schema file
+  init         [--output <path>]              Generate schema (auto-detects .env.example)
+               [--example <path>]
   gen-example  [--schema <path>]              Generate a .env.example file
                [--output <path>]
   install-hook [--root <path>]               Install git pre-commit hook + fix .gitignore

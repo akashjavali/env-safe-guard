@@ -26,15 +26,25 @@ export function parseDotEnv(content: string): Record<string, string> {
     if (eqIndex === -1) continue;
 
     const key = line.slice(0, eqIndex).trim();
-    let value = line.slice(eqIndex + 1).trim();
+    const rawValue = line.slice(eqIndex + 1);
 
-    // Strip matching surrounding quotes (single or double)
-    if (value.length >= 2) {
-      const first = value[0];
-      const last = value[value.length - 1];
+    let value: string;
+
+    // Strip matching surrounding quotes (single or double) for quoted values
+    const trimmedValue = rawValue.trim();
+    if (trimmedValue.length >= 2) {
+      const first = trimmedValue[0];
+      const last = trimmedValue[trimmedValue.length - 1];
       if ((first === '"' && last === '"') || (first === "'" && last === "'")) {
-        value = value.slice(1, -1);
+        value = trimmedValue.slice(1, -1);
+      } else {
+        // Unquoted: trimEnd only — preserve intentional leading spaces,
+        // remove trailing whitespace which is almost always noise.
+        value = rawValue.trimEnd();
       }
+    } else {
+      // Short or empty unquoted value: trimEnd for consistency
+      value = rawValue.trimEnd();
     }
 
     if (key) result[key] = value;

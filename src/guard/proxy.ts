@@ -45,7 +45,7 @@ export function createRedactedProxy<T extends AnyRecord>(
   // util.inspect only invokes the inspect.custom symbol if it finds a function
   // on the object (not just a truthy value). Pre-attach a stub function so
   // Node.js calls through the proxy get trap which returns the real redactor.
-  (parsed as AnyRecord)[inspectSymbol as unknown as string] = function () {
+  (parsed as Record<string | symbol, unknown>)[inspectSymbol] = function () {
     return buildRedactedSnapshot(parsed as AnyRecord);
   };
 

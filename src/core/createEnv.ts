@@ -72,7 +72,11 @@ export function createEnv<S extends EnvSchema>(
   // Warn about non-secret keys with secret-looking values
   warnIfSecretLooking(schema, parsed as Record<string, unknown>, secretKeys);
 
-  if (options.redact === true) {
+  // Auto-enable redaction when any key is marked secret: true, so that
+  // secret values are always redacted even on direct property access.
+  const effectiveRedact = options.redact === true || secretKeys.size > 0;
+
+  if (effectiveRedact) {
     return createRedactedProxy(parsed, secretKeys);
   }
 

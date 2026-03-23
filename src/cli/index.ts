@@ -4,7 +4,7 @@ import { runGenExample } from './gen-example.js';
 import { runInstallHook } from './install-hook.js';
 
 function printUsage(): void {
-  process.stdout.write(`env-safe-guard CLI
+  process.stdout.write(`envfort CLI
 
 Commands:
   check        [--schema <path>]              Validate env against a schema file

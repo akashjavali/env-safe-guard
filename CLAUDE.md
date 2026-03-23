@@ -1,4 +1,4 @@
-# CLAUDE.md — env-safe-guard
+# CLAUDE.md — envfort
 
 This file provides project context, architecture decisions, and conventions for Claude Code when working on this repository.
 
@@ -6,7 +6,7 @@ This file provides project context, architecture decisions, and conventions for 
 
 ## Project Overview
 
-env-safe-guard is an npm package that:
+envfort is an npm package that:
 
 - Validates env variables against a schema (string, number, boolean, optional via "?", rich descriptors with default/secret)
 - Provides full TypeScript type inference from schema

@@ -8,7 +8,7 @@ export function runCheck(flags: Record<string, string>): void {
 
   if (!existsSync(schemaPath)) {
     process.stderr.write(`❌ Schema file not found: ${schemaPath}\n`);
-    process.stderr.write(`   Run: npx env-safe-guard init\n`);
+    process.stderr.write(`   Run: npx envfort init\n`);
     process.exit(1);
   }
 

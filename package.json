@@ -1,5 +1,5 @@
 {
-  "name": "@akashjavali/env-safe-guard",
+  "name": "envfort",
   "version": "0.1.0",
   "description": "Type-safe environment validation with automatic secret redaction — built for the AI era.",
   "keywords": [
@@ -12,8 +12,16 @@
     "ai-safe",
     "secrets"
   ],
-  "author": "",
+  "author": "akashjavali",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akashjavali/envfort.git"
+  },
+  "homepage": "https://github.com/akashjavali/envfort#readme",
+  "bugs": {
+    "url": "https://github.com/akashjavali/envfort/issues"
+  },
   "type": "module",
   "exports": {
     ".": {
@@ -31,7 +39,7 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "env-safe-guard": "dist/cli/index.js"
+    "envfort": "dist/cli/index.js"
   },
   "files": [
     "dist",
@@ -54,5 +62,8 @@
     "tsup": "^8.0.0",
     "typescript": "^5.0.0",
     "vitest": "^1.0.0"
+  },
+  "dependencies": {
+    "envfort": "^0.1.0"
   }
 }

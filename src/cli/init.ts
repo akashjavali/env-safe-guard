@@ -20,5 +20,5 @@ export function runInit(flags: Record<string, string>): void {
   writeFileSync(outputPath, JSON.stringify(SAMPLE_SCHEMA, null, 2) + '\n');
   process.stdout.write(`✅ Created ${outputPath}\n`);
   process.stdout.write(`   Edit this file to match your application's env variables.\n`);
-  process.stdout.write(`   Then run: npx env-safe-guard check\n`);
+  process.stdout.write(`   Then run: npx envfort check\n`);
 }

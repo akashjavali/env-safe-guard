@@ -28,7 +28,7 @@ function warnIfSecretLooking(
     if (secretKeys.has(key)) continue;
     if (typeof value === 'string' && looksLikeSecret(value)) {
       console.warn(
-        `[env-safe-guard] ⚠️  "${key}" looks like a secret. Consider marking it { type: '...', secret: true } in your schema.`,
+        `[envfort] ⚠️  "${key}" looks like a secret. Consider marking it { type: '...', secret: true } in your schema.`,
       );
     }
   }

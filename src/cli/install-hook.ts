@@ -4,8 +4,8 @@ import {
 import { resolve, join } from 'node:path';
 
 const HOOK_CONTENT = `#!/bin/sh
-# env-safe-guard pre-commit hook
-# Installed by: npx env-safe-guard install-hook
+# envfort pre-commit hook
+# Installed by: npx envfort install-hook
 
 # 1. Block .env files from being committed
 STAGED=$(git diff --cached --name-only 2>/dev/null)
@@ -13,7 +13,7 @@ for FILE in $STAGED; do
   BASENAME=$(basename "$FILE")
   case "$BASENAME" in
     .env|.env.local|.env.development|.env.production|.env.staging)
-      echo "❌ env-safe-guard: Blocked commit of secret file: $FILE"
+      echo "❌ envfort: Blocked commit of secret file: $FILE"
       echo "   Remove it from staging: git rm --cached $FILE"
       echo "   Commit .env.example instead."
       exit 1
@@ -24,9 +24,9 @@ done
 # 2. Validate env against schema (if schema exists)
 if [ -f "env-schema.json" ]; then
   if command -v npx >/dev/null 2>&1; then
-    npx --yes env-safe-guard check --schema env-schema.json
+    npx --yes envfort check --schema env-schema.json
     if [ $? -ne 0 ]; then
-      echo "❌ env-safe-guard: Fix missing env variables before committing."
+      echo "❌ envfort: Fix missing env variables before committing."
       exit 1
     fi
   fi
@@ -49,7 +49,7 @@ function ensureGitIgnoreProtected(projectRoot: string): void {
   const missing = envPatterns.filter((p) => !content.includes(p));
 
   if (missing.length > 0) {
-    const appended = content.trimEnd() + '\n\n# env-safe-guard\n' + missing.join('\n') + '\n';
+    const appended = content.trimEnd() + '\n\n# envfort\n' + missing.join('\n') + '\n';
     writeFileSync(gitignorePath, appended);
     process.stdout.write(`✅ Added .env patterns to .gitignore: ${missing.join(', ')}\n`);
   } else {
@@ -75,12 +75,12 @@ export function runInstallHook(flags: Record<string, string>): void {
 
   if (existsSync(hookPath)) {
     const existing = readFileSync(hookPath, 'utf8');
-    if (existing.includes('env-safe-guard')) {
-      process.stdout.write(`✅ env-safe-guard hook already installed at ${hookPath}\n`);
+    if (existing.includes('envfort')) {
+      process.stdout.write(`✅ envfort hook already installed at ${hookPath}\n`);
     } else {
       writeFileSync(hookPath, existing.trimEnd() + '\n\n' + HOOK_CONTENT);
       chmodSync(hookPath, 0o755);
-      process.stdout.write(`✅ Appended env-safe-guard checks to existing hook: ${hookPath}\n`);
+      process.stdout.write(`✅ Appended envfort checks to existing hook: ${hookPath}\n`);
     }
   } else {
     writeFileSync(hookPath, HOOK_CONTENT);

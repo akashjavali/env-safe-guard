@@ -1,20 +1,20 @@
-# env-safe-guard
+# envfort
 
 > Type-safe environment validation with automatic secret redaction — built for the AI era.
 
-[![npm version](https://img.shields.io/npm/v/@akashjavali/env-safe-guard?style=flat-square)](https://www.npmjs.com/package/@akashjavali/env-safe-guard)
-[![npm downloads](https://img.shields.io/npm/dm/@akashjavali/env-safe-guard?style=flat-square)](https://www.npmjs.com/package/@akashjavali/env-safe-guard)
-[![license](https://img.shields.io/npm/l/@akashjavali/env-safe-guard?style=flat-square)](./LICENSE)
-[![CI](https://img.shields.io/github/actions/workflow/status/akashjavali/env-safe-guard/ci.yml?style=flat-square&label=CI)](https://github.com/akashjavali/env-safe-guard/actions)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/@akashjavali/env-safe-guard?style=flat-square)](https://bundlephobia.com/package/@akashjavali/env-safe-guard)
+[![npm version](https://img.shields.io/npm/v/envfort?style=flat-square)](https://www.npmjs.com/package/envfort)
+[![npm downloads](https://img.shields.io/npm/dm/envfort?style=flat-square)](https://www.npmjs.com/package/envfort)
+[![license](https://img.shields.io/npm/l/envfort?style=flat-square)](./LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/akashjavali/envfort/ci.yml?style=flat-square&label=CI)](https://github.com/akashjavali/envfort/actions)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/envfort?style=flat-square)](https://bundlephobia.com/package/envfort)
 
 ---
 
-## Why env-safe-guard?
+## Why envfort?
 
 AI coding assistants — Claude, Copilot, Cursor, ChatGPT — read your terminal output, error logs, and clipboard. Every time you `console.log(process.env)` or paste a stack trace into a chat window, you risk leaking database credentials, API keys, and tokens to a third-party model.
 
-`env-safe-guard` intercepts your environment object at the JavaScript layer using a `Proxy`. Secrets are **validated and typed at startup**, then **redacted everywhere they could accidentally escape** — logs, JSON serialization, template literals, error messages — while remaining fully accessible as raw values in your actual application code. Zero runtime overhead on hot paths. Zero extra dependencies for `.env` loading.
+`envfort` intercepts your environment object at the JavaScript layer using a `Proxy`. Secrets are **validated and typed at startup**, then **redacted everywhere they could accidentally escape** — logs, JSON serialization, template literals, error messages — while remaining fully accessible as raw values in your actual application code. Zero runtime overhead on hot paths. Zero extra dependencies for `.env` loading.
 
 ---
 
@@ -36,16 +36,16 @@ AI coding assistants — Claude, Copilot, Cursor, ChatGPT — read your terminal
 
 ```bash
 # npm
-npm install @akashjavali/env-safe-guard
+npm install envfort
 
 # yarn
-yarn add @akashjavali/env-safe-guard
+yarn add envfort
 
 # pnpm
-pnpm add @akashjavali/env-safe-guard
+pnpm add envfort
 
 # bun
-bun add @akashjavali/env-safe-guard
+bun add envfort
 ```
 
 ---
@@ -53,7 +53,7 @@ bun add @akashjavali/env-safe-guard
 ## Quick Start
 
 ```ts
-import { createEnv } from '@akashjavali/env-safe-guard'
+import { createEnv } from 'envfort'
 
 export const env = createEnv({
   DATABASE_URL: 'string',
@@ -97,7 +97,7 @@ That's it. Import `env` anywhere in your app and get fully typed, validated, red
 #### TypeScript inference example
 
 ```ts
-import { createEnv } from '@akashjavali/env-safe-guard'
+import { createEnv } from 'envfort'
 
 export const env = createEnv({
   DATABASE_URL: 'string',
@@ -144,8 +144,8 @@ All commands are available via `npx` with no installation required.
 Reads your schema and current `.env`, reports missing or invalid variables.
 
 ```bash
-npx @akashjavali/env-safe-guard check
-npx @akashjavali/env-safe-guard check --schema ./config/env.schema.ts
+npx envfort check
+npx envfort check --schema ./config/env.schema.ts
 ```
 
 ### `init` — Generate a schema file
@@ -153,8 +153,8 @@ npx @akashjavali/env-safe-guard check --schema ./config/env.schema.ts
 Scaffolds a `env.ts` schema file from your existing `.env`.
 
 ```bash
-npx @akashjavali/env-safe-guard init
-npx @akashjavali/env-safe-guard init --output ./src/env.ts
+npx envfort init
+npx envfort init --output ./src/env.ts
 ```
 
 ### `gen-example` — Generate `.env.example`
@@ -162,8 +162,8 @@ npx @akashjavali/env-safe-guard init --output ./src/env.ts
 Produces a `.env.example` with all keys present and secret values replaced by placeholders.
 
 ```bash
-npx @akashjavali/env-safe-guard gen-example
-npx @akashjavali/env-safe-guard gen-example --schema ./src/env.ts --output .env.example
+npx envfort gen-example
+npx envfort gen-example --schema ./src/env.ts --output .env.example
 ```
 
 ### `install-hook` — Install git pre-commit hook
@@ -171,8 +171,8 @@ npx @akashjavali/env-safe-guard gen-example --schema ./src/env.ts --output .env.
 Installs a pre-commit hook that runs `check` before every commit and ensures `.env` is in `.gitignore`.
 
 ```bash
-npx @akashjavali/env-safe-guard install-hook
-npx @akashjavali/env-safe-guard install-hook --root ./packages/api
+npx envfort install-hook
+npx envfort install-hook --root ./packages/api
 ```
 
 After installation, commits that would expose unprotected secrets are automatically blocked.
@@ -187,7 +187,7 @@ Create `src/env.ts` and import it in `next.config.ts` to validate at build time.
 
 ```ts
 // src/env.ts
-import { createEnv } from '@akashjavali/env-safe-guard'
+import { createEnv } from 'envfort'
 
 export const env = createEnv({
   DATABASE_URL: 'string',
@@ -222,7 +222,7 @@ export async function GET() {
 
 ```ts
 // src/env.ts
-import { createEnv } from '@akashjavali/env-safe-guard'
+import { createEnv } from 'envfort'
 
 export const env = createEnv({
   DATABASE_URL: 'string',
@@ -247,7 +247,7 @@ app.listen(env.PORT, () => {
 ### Plain Node.js with `loadDotEnv`
 
 ```ts
-import { createEnv } from '@akashjavali/env-safe-guard'
+import { createEnv } from 'envfort'
 
 const env = createEnv({
   STRIPE_SECRET_KEY: { type: 'string', secret: true },
@@ -267,13 +267,13 @@ console.log(env.STRIPE_SECRET_KEY) // ***REDACTED***
 
 ## Cross-Environment Support
 
-`env-safe-guard` is not tied to Node's `process.env`. Pass any environment source via `options.env`.
+`envfort` is not tied to Node's `process.env`. Pass any environment source via `options.env`.
 
 ### Cloudflare Workers
 
 ```ts
 // worker.ts
-import { createEnv } from '@akashjavali/env-safe-guard'
+import { createEnv } from 'envfort'
 
 export default {
   async fetch(request: Request, cfEnv: Env) {
@@ -293,7 +293,7 @@ export default {
 ### Deno
 
 ```ts
-import { createEnv } from 'npm:@akashjavali/env-safe-guard'
+import { createEnv } from 'npm:envfort'
 
 const env = createEnv({
   DATABASE_URL: 'string',
@@ -307,7 +307,7 @@ const env = createEnv({
 ### Bun
 
 ```ts
-import { createEnv } from '@akashjavali/env-safe-guard'
+import { createEnv } from 'envfort'
 
 const env = createEnv({
   DATABASE_URL: 'string',
@@ -323,7 +323,7 @@ const env = createEnv({
 Inject a fake environment in your test suite without touching `process.env`:
 
 ```ts
-import { createEnv } from '@akashjavali/env-safe-guard'
+import { createEnv } from 'envfort'
 
 const env = createEnv({
   DATABASE_URL: 'string',
@@ -343,25 +343,25 @@ const env = createEnv({
 Install the pre-commit hook once per repository:
 
 ```bash
-npx @akashjavali/env-safe-guard install-hook
+npx envfort install-hook
 ```
 
 This does two things:
 
-1. Adds a `.git/hooks/pre-commit` script that runs `env-safe-guard check` before every commit. If your environment schema is invalid or variables are missing, the commit is blocked with a clear message.
+1. Adds a `.git/hooks/pre-commit` script that runs `envfort check` before every commit. If your environment schema is invalid or variables are missing, the commit is blocked with a clear message.
 2. Audits `.gitignore` and ensures `.env` (and common variants) are listed. If they are missing, it adds them automatically.
 
 For monorepos, point it at the package root:
 
 ```bash
-npx @akashjavali/env-safe-guard install-hook --root ./packages/api
+npx envfort install-hook --root ./packages/api
 ```
 
 ---
 
 ## Comparison
 
-| Feature | dotenv | envalid | @t3-oss/env-nextjs | Doppler | **env-safe-guard** |
+| Feature | dotenv | envalid | @t3-oss/env-nextjs | Doppler | **envfort** |
 |---|---|---|---|---|---|
 | Load `.env` | Yes | No | No | No | Yes (built-in, zero deps) |
 | Validate schema | No | Yes | Yes | No | Yes |
@@ -425,4 +425,4 @@ MIT — see [LICENSE](./LICENSE) for details.
 
 ---
 
-> If `env-safe-guard` has saved you from an accidental secret leak, consider giving it a star. It helps others find the project.
+> If `envfort` has saved you from an accidental secret leak, consider giving it a star. It helps others find the project.

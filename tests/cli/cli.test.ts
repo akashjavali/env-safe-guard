@@ -97,7 +97,7 @@ describe('install-hook command', () => {
     expect(stdout).toContain('✅');
     expect(existsSync(join(dir, '.git', 'hooks', 'pre-commit'))).toBe(true);
     const hookContent = readFileSync(join(dir, '.git', 'hooks', 'pre-commit'), 'utf8');
-    expect(hookContent).toContain('env-safe-guard');
+    expect(hookContent).toContain('envfort');
     rmSync(dir, { recursive: true });
   });
 

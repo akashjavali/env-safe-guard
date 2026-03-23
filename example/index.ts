@@ -1,5 +1,5 @@
 /**
- * env-safe-guard — Complete Example
+ * envfort — Complete Example
  *
  * Run:  npx tsx example/index.ts
  */
